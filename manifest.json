@@ -1,0 +1,15 @@
+{
+  "name": "『影響力の正体』30の実践チャレンジ",
+  "short_name": "30の実践",
+  "description": "『影響力の正体』を読む前に、30の小さな実践を試すチャレンジ",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FCFAF5",
+  "theme_color": "#16B9E7",
+  "icons": [
+    {"src":"icons/icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"icons/icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+  ]
+}
