@@ -1,4 +1,4 @@
-const CACHE_NAME = 'influence-30-practice-v10';
+const CACHE_NAME = 'influence-30-practice-v11';
 const ASSETS = [
   './',
   './index.html',
