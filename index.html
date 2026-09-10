@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>『影響力の正体』30の実践チャレンジ</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#16B9E7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="30の実践">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#16B9E7;
+  --blue-deep:#0A92BC;
+  --pink:#F2787E;
+  --pink-soft:#FFE3E4;
+  --paper:#FCFAF5;
+  --white:#FFFFFF;
+  --ink:#171717;
+  --muted:#776F67;
+  --line:#D8D0C5;
+  --done:#8FA084;
+  --gray:#D8D8D8;
+  --serif:"Noto Serif JP","Hiragino Mincho ProN",serif;
+  --sans:"Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;
+}
+button,a{font:inherit}
+.wrap{max-width:680px;margin:0 auto;padding:26px 18px 70px}
+.top{
+  padding:8px 0 22px;
+  border-bottom:2px solid var(--ink);
+}
+.kicker{font-size:11px;letter-spacing:.16em;font-weight:700;color:var(--blue-deep);margin-bottom:8px}
+h1{font-family:var(--serif);font-size:28px;line-height:1.45;margin:0;font-weight:700}
+.subtitle{margin:7px 0 0;color:var(--muted);font-size:13px}
+.intro{
+  margin:22px 0 24px;
+  background:var(--white);
+  border:1.5px solid var(--ink);
+  box-shadow:7px 7px 0 var(--pink);
+  padding:20px 18px;
+}
+.intro summary{cursor:pointer;list-style:none;font-family:var(--serif);font-size:19px;font-weight:700;margin:0}
+.intro summary::-webkit-details-marker{display:none}
+.intro summary::after{content:"＋";float:right;font-family:var(--sans);font-size:18px}
+.intro[open] summary::after{content:"−"}
+.intro-body{margin-top:12px}
+.intro p{font-family:var(--serif);font-size:14.5px;line-height:1.95;margin:0 0 10px;color:#38332F}
+.intro p:last-child{margin-bottom:0}
+.intro strong{color:var(--ink)}
+.progress-card{
+  background:var(--blue);
+  border:2px solid var(--ink);
+  box-shadow:7px 7px 0 var(--pink);
+  padding:18px;
+  margin-bottom:26px;
+}
+.progress-top{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.progress-main{display:flex;align-items:flex-end;gap:8px}
+.progress-num{font-family:var(--serif);font-size:54px;font-weight:900;line-height:.9;color:var(--white);text-shadow:3px 3px 0 var(--pink)}
+.progress-den{font-size:15px;font-weight:900;letter-spacing:.08em;margin-bottom:5px}
+.progress-copy{text-align:right;font-size:12px;line-height:1.5;font-weight:700}
+.bar{height:10px;border:1.5px solid var(--ink);background:var(--white);margin-top:14px;overflow:hidden}
+.bar-fill{height:100%;background:var(--pink);width:0;transition:width .35s ease}
+.section-tracker{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:26px 0}
+.sec-badge{
+  min-width:0;aspect-ratio:1;border-radius:50%;background:#DFDFDF;border:1.5px solid var(--ink);
+  display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;color:#505050;
+  transition:.25s ease;
+}
+.sec-badge.current{background:var(--blue);color:var(--ink);box-shadow:3px 3px 0 var(--pink)}
+.sec-badge.done{background:var(--pink);color:var(--ink)}
+.sec-badge .snum{display:block;font-size:9px;font-weight:900;letter-spacing:.08em}
+.sec-badge .sname{display:block;font-size:9px;font-weight:700;line-height:1.3;margin-top:4px}
+.current-section-label{font-family:var(--serif);font-weight:700;font-size:17px;margin:0 0 12px}
+.current-card{
+  background:var(--white);
+  border:2px solid var(--ink);
+  box-shadow:8px 8px 0 var(--pink);
+  padding:22px 18px 20px;
+  position:relative;
+}
+.current-card::before{
+  content:"CURRENT";
+  position:absolute;top:-13px;left:16px;background:var(--blue);border:1.5px solid var(--ink);padding:4px 9px;font-size:9px;font-weight:900;letter-spacing:.14em;
+}
+.day-number{font-family:var(--serif);font-size:12px;color:var(--muted);margin-bottom:7px}
+.day-number b{font-size:34px;color:var(--ink);margin-right:4px}
+.day-title{font-size:20px;line-height:1.55;margin:0 0 12px;font-weight:900}
+.day-desc{font-family:var(--serif);font-size:15px;line-height:1.95;margin:0;color:#4D4640}
+.book-hint{margin-top:15px;border-left:4px solid var(--blue);padding:9px 12px;background:#F0F9FC;font-size:12.5px;line-height:1.7;font-weight:700}
+.complete-btn{
+  width:100%;margin-top:20px;background:var(--ink);color:var(--white);border:0;padding:16px 14px;font-weight:900;font-size:15px;cursor:pointer;
+  box-shadow:4px 4px 0 var(--blue);
+}
+.complete-btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--blue)}
+.finished-card{display:none;background:var(--white);border:2px solid var(--ink);padding:24px 18px;text-align:center;box-shadow:8px 8px 0 var(--pink)}
+.finished-card.open{display:block}
+.finished-card h2{font-family:var(--serif);margin:0 0 8px;font-size:24px}
+.finished-card p{font-family:var(--serif);line-height:1.9;font-size:14px}
+.history{margin-top:30px;border-top:1.5px solid var(--ink);padding-top:18px}
+.history summary{cursor:pointer;font-family:var(--serif);font-weight:700;font-size:15px;list-style:none}
+.history summary::-webkit-details-marker{display:none}
+.history-list{margin-top:12px}
+.history-item{border-bottom:1px solid var(--line)}
+.history-item summary{display:flex;gap:12px;padding:12px 0;align-items:flex-start;cursor:pointer;list-style:none}
+.history-item summary::-webkit-details-marker{display:none}
+.history-check{width:24px;height:24px;background:var(--done);color:white;display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:14px;margin-top:2px}
+.history-title{font-size:13.5px;line-height:1.6;font-weight:700;color:#5D574F;flex:1}
+.history-toggle{font-size:16px;color:var(--muted);line-height:1.4;transition:transform .2s ease}
+.history-item[open] .history-toggle{transform:rotate(180deg)}
+.history-detail{padding:0 0 14px 36px;font-family:var(--serif);font-size:13.5px;line-height:1.9;color:#4D4640}
+.history-detail p{margin:0}
+.history-detail .history-book-note{margin-top:10px;border-left:3px solid var(--blue);padding:7px 10px;background:#F0F9FC;font-family:var(--sans);font-size:11.5px;line-height:1.7;font-weight:700}
+.undo-row{text-align:right;margin-top:12px}
+.undo-btn{background:transparent;border:0;border-bottom:1px solid var(--muted);padding:2px 0;color:var(--muted);font-size:11px;cursor:pointer}
+.footer{margin-top:38px;padding-top:18px;border-top:2px solid var(--ink);font-size:11px;color:var(--muted);line-height:1.7}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.66);display:none;align-items:center;justify-content:center;z-index:100;padding:14px}
+.modal-bg.open{display:flex}
+.modal{background:var(--paper);width:min(94vw,420px);max-height:94vh;overflow:auto;border:2px solid var(--ink);padding:14px;box-shadow:8px 8px 0 var(--pink)}
+.modal-head{text-align:center;padding:8px 4px 14px}
+.modal-head h2{font-family:var(--serif);font-size:22px;line-height:1.5;margin:0 0 8px}
+.modal-head p{font-family:var(--serif);font-size:13.5px;line-height:1.8;margin:0;color:#514A45}
+.modal-actions{display:flex;gap:10px;margin-top:14px}
+.btn{flex:1;border:1.5px solid var(--ink);background:var(--white);color:var(--ink);padding:13px 10px;font-weight:900;cursor:pointer}
+.btn.primary{background:var(--ink);color:var(--white)}
+
+/* Share card preview: 4:5 */
+.share-card{width:100%;aspect-ratio:4/5;background:var(--white);border:2px solid var(--ink);overflow:hidden;position:relative}
+.sc-top-title{text-align:center;font-family:var(--serif);font-weight:700;font-size:12px;padding:10px 6px 7px;white-space:nowrap}
+.sc-subtitle{text-align:center;font-family:var(--sans);font-weight:900;font-size:8px;letter-spacing:.14em;margin-top:-2px}
+.sc-hero{margin:0 8%;height:48%;background:var(--blue);border:1.5px solid var(--ink);box-shadow:7px 7px 0 var(--pink);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.sc-hero::before{content:"";position:absolute;inset:-5%;background:radial-gradient(circle at center, rgba(255,255,255,.18) 0 26%, rgba(255,255,255,0) 27% 100%)}
+.sc-burst{position:absolute;inset:0;background:repeating-conic-gradient(from 0deg at 50% 45%, rgba(255,255,255,.18) 0deg 8deg, rgba(255,255,255,0) 8deg 16deg);opacity:.35;mix-blend-mode:screen}
+.sc-pill{position:absolute;left:18px;top:16px;background:var(--white);border:1.5px solid var(--ink);padding:4px 10px;font-size:10px;font-weight:900;letter-spacing:.08em;box-shadow:3px 3px 0 var(--pink)}
+.sc-pill.final{background:#FFF5F6}
+.sc-big-wrap{position:relative;line-height:.7;margin-top:-1%}
+.sc-big{font-family:var(--sans);font-weight:900;font-size:116px;color:var(--white);-webkit-text-stroke:2px var(--ink);text-shadow:6px 6px 0 var(--pink);letter-spacing:-.08em}
+.sc-tsu{position:absolute;font-family:var(--sans);font-weight:900;font-size:29px;right:-20px;bottom:6px;color:var(--white);-webkit-text-stroke:1.5px var(--ink);text-shadow:3px 3px 0 var(--pink)}
+.sc-achieve{background:var(--white);border:1.5px solid var(--ink);padding:7px 12px;font-size:17px;font-weight:900;margin-top:12px}
+.sc-complete{font-size:9px;letter-spacing:.22em;font-weight:700;margin-top:10px;color:var(--white)}
+.sc-rays{position:absolute;right:9%;top:18%;font-size:30px;color:var(--pink);font-weight:900;transform:rotate(-10deg)}
+.sc-confetti{position:absolute;inset:0;pointer-events:none}
+.sc-confetti span{position:absolute;width:7px;height:24px;border:1px solid var(--ink);background:var(--pink);transform:rotate(var(--r))}
+.sc-confetti span:nth-child(even){background:var(--white)}
+.sc-confetti span:nth-child(3n){background:#8FE8FF}
+.sc-sections{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin:18px 5% 10px}
+.sc-sec{aspect-ratio:1;border-radius:50%;background:#DDD;border:1.3px solid var(--ink);display:flex;align-items:center;justify-content:center;text-align:center;padding:5px;position:relative}
+.sc-sec.done{background:var(--pink)}
+.sc-sec.active{background:var(--blue)}
+.sc-sec .num{display:block;font-size:7px;font-weight:900}
+.sc-sec .name{display:block;font-size:7px;font-weight:700;line-height:1.2;margin-top:2px}
+.sc-check{position:absolute;right:-2px;top:-2px;width:18px;height:18px;border-radius:50%;background:var(--white);border:1.2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900}
+.sc-bottom{border-top:1.5px solid var(--ink);margin:0 4%;padding:10px 0 6px;display:grid;grid-template-columns:30% 1fr;gap:10px;align-items:center}
+.sc-book{width:100%;display:block;border:1px solid rgba(0,0,0,.1)}
+.sc-copy{font-family:var(--serif);font-weight:900;font-size:16px;line-height:1.45;margin:0}
+.sc-copy::after{content:"";display:block;height:4px;background:var(--pink);margin-top:6px;width:86%}
+.sc-foot{grid-column:2;font-size:7px;color:#222;letter-spacing:.01em;margin-top:-6px}
+
+.section-modal-card{border:2px solid var(--ink);background:var(--white);padding:22px 18px 20px;position:relative;overflow:hidden;box-shadow:7px 7px 0 var(--pink)}
+.section-modal-card::before,.section-modal-card::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.section-modal-card::before{width:180px;height:180px;background:var(--pink-soft);right:-70px;top:-70px}
+.section-modal-card::after{width:120px;height:120px;background:#DDF7FF;left:-52px;bottom:-52px}
+.section-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.section-confetti span{position:absolute;width:8px;height:28px;background:var(--pink);border:1px solid var(--ink);transform:rotate(var(--r));left:var(--x);top:var(--y)}
+.section-confetti span:nth-child(even){background:var(--blue)}
+.section-celebrate{text-align:center;position:relative;z-index:1;padding:3px 0 12px}
+.section-complete-big{font-family:var(--sans);font-size:14px;letter-spacing:.18em;font-weight:900;color:var(--ink);display:inline-block;background:var(--blue);border:1.5px solid var(--ink);padding:7px 11px;box-shadow:4px 4px 0 var(--pink)}
+.section-checkmark{width:66px;height:66px;border-radius:50%;margin:18px auto 9px;background:var(--pink);border:2px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;box-shadow:5px 5px 0 var(--blue)}
+.section-modal-card h3{font-family:var(--serif);font-size:24px;line-height:1.45;margin:7px 0 12px;position:relative;text-align:center}
+.section-modal-card p{font-family:var(--serif);font-size:14px;line-height:1.9;margin:0;position:relative;z-index:1}
+.section-unlocked{margin-top:16px!important;background:var(--ink);color:var(--white);padding:12px 10px;text-align:center;font-family:var(--sans)!important;font-weight:900;line-height:1.6!important}
+.section-unlocked b{color:#8FE8FF}
+.section-book-line{margin-top:14px!important;font-weight:700;border-top:1px solid var(--line);padding-top:12px;color:#4f4943}
+
+@media(max-width:430px){
+  .wrap{padding-left:15px;padding-right:15px}
+  h1{font-size:24px}
+  .intro p{font-size:13.8px}
+  .day-title{font-size:18px}
+  .day-desc{font-size:14px}
+  .sec-badge .sname{font-size:8px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="kicker">『影響力の正体』SNSシェア限定コンテンツ</div>
+    <h1>30の実践チャレンジ</h1>
+    <p class="subtitle">30の小さな実践を、ひとつずつ。</p>
+  </header>
+
+  <details class="intro" id="introDetails" open>
+    <summary>はじめに</summary>
+    <div class="intro-body">
+      <p><strong>このチャレンジでは、まず30の実践を試してみてください。</strong></p>
+      <p>1日1つが目安ですが、毎日できなくても大丈夫です。自分のペースで進めてください。</p>
+      <p>実践してみると、自分の気持ちや相手の反応に、小さな変化が起きるかもしれません。</p>
+      <p><strong>「なぜ、これで変わったんだろう？」その答え合わせは、書籍『影響力の正体』で。</strong></p>
+      <p>先に体験してから読むことで、書かれていることが自分の経験とつながり、理解がさらに深まります。</p>
+    </div>
+  </details>
+
+  <section class="progress-card">
+    <div class="progress-top">
+      <div class="progress-main"><div class="progress-num" id="progressNum">0</div><div class="progress-den">/ 30</div></div>
+      <div class="progress-copy"><span id="progressState">0の実践を達成</span><br>次の1つに進もう</div>
+    </div>
+    <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+  </section>
+
+  <div class="section-tracker" id="sectionTracker"></div>
+  <p class="current-section-label" id="currentSectionLabel"></p>
+
+  <section class="current-card" id="currentCard">
+    <div class="day-number"><b id="dayNum">1</b> / 30</div>
+    <h2 class="day-title" id="dayTitle"></h2>
+    <p class="day-desc" id="dayDesc"></p>
+    <div class="book-hint" id="bookHint" style="display:none"></div>
+    <button class="complete-btn" id="completeBtn">実践できた ✓</button>
+  </section>
+
+  <section class="finished-card" id="finishedCard">
+    <h2>30 / 30 COMPLETE</h2>
+    <p>30の実践、すべて達成です。<br>ここからは、書籍『影響力の正体』で答え合わせをしてみてください。</p>
+  </section>
+
+  <details class="history" id="historyBox">
+    <summary>✓ 完了した実践を見返す（<span id="historyCount">0</span>）</summary>
+    <div class="history-list" id="historyList"></div>
+    <div class="undo-row"><button class="undo-btn" id="undoBtn">直前のチェックを戻す</button></div>
+  </details>
+
+  <footer class="footer">
+    チェック状況はこの端末・ブラウザ内に保存されます。ブラウザや端末を変えると進捗は引き継がれません。<br>
+    build 2026-09-10-v10
+  </footer>
+</div>
+
+<div class="modal-bg" id="modalBg" aria-hidden="true">
+  <div class="modal" id="modal"></div>
+</div>
+
+<img id="bookCoverSource" src="assets/book-cover.png" alt="" style="display:none">
+<canvas id="shareCanvas" width="1080" height="1350" style="display:none"></canvas>
+
+<script>
+const TOTAL = 30;
+const STORAGE_KEY = 'influence-30-practice-v8-fresh';
+const BOOK_URL = 'https://sub.pioneerwoman.jp/p/eikyoryoku';
+
+const SECTIONS = [
+  {id:1,start:1,end:8,name:'自分と相手が動き出す「土台」をつくる',short:'土台をつくる',completeTitle:'土台づくり、完了！',completeText:'自分の「なぜ」と向き合い、人が動き出す土台をつくる実践を終えました。小さくても、「いつもと少し違ったかも」と感じる変化があれば、それが最初の一歩です。',bookLine:'なぜその変化が起きたのか。答え合わせは、書籍『影響力の正体』で。',nextLabel:'SECTION 02「伝わり方と言葉」'},
+  {id:2,start:9,end:15,name:'「伝わり方」と言葉を整える',short:'伝わり方と言葉',completeTitle:'伝わり方と言葉、完了！',completeText:'見せ方や言葉を少し変えるだけで、伝わり方が変わる感覚を試してきました。「同じことでも反応が違う」が見えてきたら、このSECTIONの成果です。',bookLine:'その違いがどこから生まれるのかは、書籍で答え合わせできます。',nextLabel:'SECTION 03「人が動くしくみ」'},
+  {id:3,start:16,end:23,name:'人が自然と動く「しくみ」をつくる',short:'人が動くしくみ',completeTitle:'人が動くしくみ、完了！',completeText:'やる気や根性だけに頼らず、人が動きやすい環境や関係をつくる実践を終えました。「頑張らせる」より「動きやすくする」という感覚が見えてきたら十分です。',bookLine:'そのしくみがなぜ働くのか。理由は書籍で確かめてみてください。',nextLabel:'SECTION 04「守り、信頼を広げる」'},
+  {id:4,start:24,end:30,name:'影響力を守り、信頼を広げる',short:'守り、信頼を広げる',completeTitle:'最後のSECTION、完了！',completeText:'影響力をどう使うか、どう信頼につなげるかまで含めて、30の実践をやり切りました。ここまで来たあなたは、もう「知っている」だけではなく、実際に試した人です。',bookLine:'ここまでの体験を、最後は書籍『影響力の正体』でつなげてみてください。',nextLabel:''}
+];
+
+const MILESTONES = {
+  5:{copy:'想いは、伝え方ひとつで届きはじめる。',copyLines:['想いは、','伝え方ひとつで','届きはじめる。'],activeSection:1,title:'5つの実践、達成！',body:'まずは最初の5つ、クリアです。自分の気持ちや相手の反応に、何か小さな変化はありましたか？'},
+  10:{copy:'「なぜか伝わる人」には、理由がある。',copyLines:['「なぜか伝わる人」には、','理由がある。'],activeSection:2,title:'10の実践、達成！',body:'10 / 30まで来ました。「伝え方を少し変えるだけで、反応が変わるかも」そんな感覚が見えてきた頃かもしれません。'},
+  15:{copy:'人を動かす力は、才能ではなく技術。',copyLines:['人を動かす力は、','才能ではなく技術。'],activeSection:2,title:'15の実践、達成！',body:'30の実践も、ちょうど折り返し地点。ここまでに試したことの中で、「これは効いたかも」と思うものをひとつ覚えておいてください。'},
+  20:{copy:'言葉だけでなく、しくみでも人は動く。',copyLines:['言葉だけでなく、','しくみでも人は動く。'],activeSection:3,title:'20の実践、達成！',body:'20 / 30まで来ました。言葉だけでなく、「人が動きやすい状況をつくる」実践も増えてきました。あと10です。'},
+  25:{copy:'影響力は、誰かを動かす前に、自分を整えることから。',copyLines:['影響力は、','誰かを動かす前に、','自分を整えることから。'],activeSection:4,title:'25の実践、達成！',body:'あと5つです。ここまで25の実践を重ねてきたからこそ、最初とは違う見え方が生まれているかもしれません。'},
+  30:{copy:'その魅力や価値が、必要な人に届くように。',copyLines:['その魅力や価値が、','必要な人に届くように。'],activeSection:4,title:'30の実践、すべて達成！',body:'ここまで、30の実践をすべてやりきりました。自分の気持ちや、相手との関わり方に、何か変化はありましたか？ここからは、書籍『影響力の正体』で答え合わせをしてみてください。'}
+};
+
+const ITEMS = [
+  {day:1,title:'「なぜ」を1行、紙に書く',desc:'今やっている仕事や挑戦について、「なぜ自分はこれをやっているのか」を1行だけ紙に書いてみてください。すらすら書けなくても大丈夫です。その問いと向き合うことから始めてみましょう。',hint:'この問いは、これからの実践の土台になります。理由は書籍で答え合わせを。'},
+  {day:2,title:'「あなたならできる」を伝える',desc:'今日、誰かひとりに「あなたならできるよ」と伝えてみてください。そのとき、「前に○○ができたから」のように、そう思う具体的な理由もひとつ添えてみましょう。'},
+  {day:3,title:'未来の解像度を上げる問いをする',desc:'何かに挑戦している人に、「それが叶ったとき、どこで、誰と、何をしている？」と聞いてみてください。ぼんやりした未来を、具体的な一場面として思い描いてもらいます。'},
+  {day:4,title:'「三年は続ける」と紙に書いて貼る',desc:'今続けたいと思っていることをひとつ選び、「何があっても三年は続ける」と紙に書いてみてください。日付も入れて、普段から目に入る場所に貼っておきましょう。'},
+  {day:5,title:'見返りを期待せず先に差し出す',desc:'家族や同僚など、身近な誰かに小さな親切をひとつしてみてください。お茶をいれる、資料を準備するなど、ささやかなことで十分です。今日は見返りを求めず、こちらから先に差し出してみましょう。'},
+  {day:6,title:'共通点になりそうな事実を用意する',desc:'次に会う人をひとり思い浮かべ、その人との共通点になりそうなことをひとつ探してみてください。出身地、趣味、経験など、小さな共通点でかまいません。'},
+  {day:7,title:'相手の話し方に、さりげなく合わせる',desc:'今日誰かと話すとき、相手の話すスピードやうなずき方、間の取り方に少しだけ合わせてみてください。露骨に真似するのではなく、自然にテンポを近づける程度でOKです。'},
+  {day:8,title:'肩書きを自己紹介の冒頭に置く',desc:'自分の経験や経歴の中から、「自分が何者なのか」が伝わる言葉をひとつ選んでみてください。次に自己紹介するとき、その言葉を最初に置いてみましょう。'},
+  {day:9,title:'資料のばらつきをひとつそろえる',desc:'自分が使っている資料や投稿、書類をひとつ見直してみてください。フォント・色・余白などにばらつきがあれば、今日はどれかひとつだけ統一してみましょう。'},
+  {day:10,title:'「素敵」の理由を五つ書き出す',desc:'「なんか素敵だな」と感じる人やお店、デザインなどをひとつ選んでください。そして、なぜそう感じるのかを具体的に5つ書き出してみましょう。'},
+  {day:11,title:'最初の0.5秒の場所を完璧に整える',desc:'相手が最初に目にする場所をひとつ選んでください。プロフィール写真、資料の1ページ目、身だしなみなど何でもOK。その一か所だけ、今日は丁寧に整えてみましょう。'},
+  {day:12,title:'具体的な場面を描写して添える',desc:'誰かに何かをすすめたりお願いしたりするとき、結果だけでなく、「明日の朝、○○しているところ」のような具体的な場面をひとつ添えて伝えてみてください。'},
+  {day:13,title:'「〜なので」をひとつ足す',desc:'今日誰かにお願いするとき、「○○なので、△△してもらえますか？」のように、短い理由をひとつ添えてみてください。特別な理由でなくても大丈夫です。'},
+  {day:14,title:'「もし〜なら」を一緒に決めて手渡す',desc:'続けてほしい行動をひとつ選び、「もし○○になったら、△△する」という形にしてみてください。できれば、相手と一緒に「いつ・どんなときにやるか」まで決めてみましょう。'},
+  {day:15,title:'小さな本音をひとつ打ち明ける',desc:'もう少し信頼を深めたい相手に、普段はあまり話していない小さな本音をひとつ伝えてみてください。重たい告白ではなく、「実はこう思ってた」くらいの小さなもので十分です。'},
+  {day:16,title:'「最初の一歩」を半分にする方法を渡す',desc:'誰かにやってほしいことをひとつ思い浮かべ、その行動の最初の一歩をもっと小さくできないか考えてみてください。「これならすぐできる」というところまでハードルを下げて、ひとつ提案してみましょう。',hint:'ここからは「頑張らせる」より、「動きやすくする」実践へ。'},
+  {day:17,title:'選択肢を数え、3つ以下に絞る',desc:'相手に何かを選んでもらう場面で、選択肢がいくつあるか数えてみてください。4つ以上あるなら、今日は3つ以下まで絞って提示してみましょう。'},
+  {day:18,title:'「数字」と「期日」を入れて伝える',desc:'「頑張る」「早めにやる」のような曖昧な言葉をひとつ見つけ、数字と期限の入った言葉に変えてみてください。「○日までに○個」のように、次の行動が見える形にしてみましょう。'},
+  {day:19,title:'相手にも選んでもらう',desc:'何かを決めるとき、全部こちらで決めずに、一部分だけ相手に選んでもらってください。色、名前、順番など、小さなことで十分です。'},
+  {day:20,title:'今月の目標を、誰かに宣言する',desc:'今月達成したいことをひとつ決めて、信頼できる誰かに伝えてみてください。口頭でもメッセージでもOK。「私はこれをやる」と、言葉にして外に出してみましょう。'},
+  {day:21,title:'久しぶりの知人に、自分から連絡する',desc:'半年以上会っていない知人をひとり思い浮かべてください。「久しぶり！」の一言だけでもいいので、今日は自分から連絡してみましょう。'},
+  {day:22,title:'「みんなで繰り返すこと」をひとつ作る',desc:'家族やチームで、決まって繰り返すことをひとつ考えてみてください。毎週でも月1回でもOK。小さな「いつもの習慣」をつくってみましょう。'},
+  {day:23,title:'「私たち」と呼べる名前をつける',desc:'自分が所属しているチームやコミュニティに、みんなで使える名前や合言葉をひとつ考えてみてください。「私たち○○だよね」と呼べるものなら、簡単なあだ名でもOKです。'},
+  {day:24,title:'心の中の「予言」を書き換える',desc:'家族、部下、友人など、身近な人について「この人は○○だから」と決めつけていることがないか考えてみてください。否定的なものがあれば、「もしかしたら○○できるかもしれない」と書き換えてみましょう。'},
+  {day:25,title:'「まだできない」に言いかえる',desc:'今日、自分や誰かが「できない」「難しい」と言ったら、その言葉に「まだ」を足してみてください。「できない」ではなく「まだできない」に変えてみましょう。',hint:'たった一語で、次の行動の可能性が残ることがあります。'},
+  {day:26,title:'否定形を肯定形に書きかえる',desc:'今日送るメッセージや伝える言葉をひとつ見直してみてください。「○○しないで」ではなく「○○してほしい」のように、できるだけ肯定形に書き換えてみましょう。'},
+  {day:27,title:'「昨日の自分」と比べ直す',desc:'誰かと比べて焦ったり落ち込んだりしたら、比較する相手を「昨日の自分」に変えてみてください。そして、昨日より少しでもできたことをひとつ書き出してみましょう。'},
+  {day:28,title:'一往復で終わらせず、もう一通返す',desc:'メッセージで誰かとやり取りするとき、用件が終わったあとにもう一通だけ返してみてください。質問でも感想でもOK。関係を一往復で終わらせないことを意識してみましょう。'},
+  {day:29,title:'伝えたい話に「感情」か「物語」をのせる',desc:'今日誰かに伝えたいことをひとつ選んでください。事実だけを話すのではなく、「そのときどう感じたか」か「実際にあった一場面」をひとつ加えて伝えてみましょう。'},
+  {day:30,title:'「誰のために使うか」を書いて貼る',desc:'ここまで実践してきたことを、最終的に誰のために使いたいか考えてみてください。「私はこの力を、○○のために使う」と1行にして、目に入る場所に貼ってみましょう。'}
+];
+
+let progress = 0;
+let modalQueue = [];
+
+function sectionForDay(day){ return SECTIONS.find(s=>day>=s.start && day<=s.end) || SECTIONS[3]; }
+function currentSectionId(){ return progress>=TOTAL ? 4 : sectionForDay(progress+1).id; }
+
+function loadProgress(){
+  // v7から完全に新規スタート。旧版の進捗キーは一切読み込まない。
+  const saved = parseInt(localStorage.getItem(STORAGE_KEY),10);
+  progress = (Number.isInteger(saved) && saved>=0 && saved<=TOTAL) ? saved : 0;
+}
+function saveProgress(){ localStorage.setItem(STORAGE_KEY,String(progress)); }
+
+function render(){
+  document.getElementById('progressNum').textContent=progress;
+  document.getElementById('progressState').textContent=`${progress}の実践を達成`;
+  document.getElementById('barFill').style.width=`${progress/TOTAL*100}%`;
+  const intro=document.getElementById('introDetails');
+  if(intro) intro.open = progress === 0;
+  renderSections();
+  renderHistory();
+  const current=document.getElementById('currentCard');
+  const finished=document.getElementById('finishedCard');
+  if(progress>=TOTAL){
+    current.style.display='none';finished.classList.add('open');
+    document.getElementById('currentSectionLabel').textContent='すべてのSECTIONを完了しました';
+    return;
+  }
+  current.style.display='block';finished.classList.remove('open');
+  const item=ITEMS[progress];
+  const sec=sectionForDay(item.day);
+  document.getElementById('currentSectionLabel').textContent=`SECTION 0${sec.id}｜${sec.name}`;
+  document.getElementById('dayNum').textContent=item.day;
+  document.getElementById('dayTitle').textContent=item.title;
+  document.getElementById('dayDesc').textContent=item.desc;
+  const hint=document.getElementById('bookHint');
+  if(item.hint){hint.textContent='BOOK NOTE｜'+item.hint;hint.style.display='block'}else{hint.style.display='none';hint.textContent=''}
+}
+
+function renderSections(){
+  const id=currentSectionId();
+  const el=document.getElementById('sectionTracker');
+  el.innerHTML='';
+  SECTIONS.forEach(s=>{
+    const done=progress>=s.end;
+    const current=!done && s.id===id;
+    const badge=document.createElement('div');
+    badge.className='sec-badge'+(done?' done':'')+(current?' current':'');
+    badge.innerHTML=`<div><span class="snum">SECTION 0${s.id}</span><span class="sname">${s.short}</span></div>`;
+    el.appendChild(badge);
+  });
+}
+
+function renderHistory(){
+  const list=document.getElementById('historyList'); list.innerHTML='';
+  document.getElementById('historyCount').textContent=progress;
+  for(let i=0;i<progress;i++){
+    const it=ITEMS[i];
+    const row=document.createElement('details');row.className='history-item';
+    row.innerHTML=`
+      <summary>
+        <div class="history-check">✓</div>
+        <div class="history-title">${it.day}. ${it.title}</div>
+        <div class="history-toggle">⌄</div>
+      </summary>
+      <div class="history-detail">
+        <p>${it.desc}</p>
+        ${it.hint?`<div class="history-book-note">BOOK NOTE｜${it.hint}</div>`:''}
+      </div>`;
+    list.appendChild(row);
+  }
+  document.getElementById('historyBox').style.display=progress>0?'block':'none';
+}
+
+function completeCurrent(){
+  if(progress>=TOTAL) return;
+  progress++;
+  saveProgress();
+  render();
+  const events=[];
+  if(MILESTONES[progress]) events.push({type:'milestone',value:progress});
+  const sec=SECTIONS.find(s=>s.end===progress);
+  if(sec) events.push({type:'section',value:sec.id});
+  modalQueue.push(...events);
+  if(!document.getElementById('modalBg').classList.contains('open')) showNextModal();
+  setTimeout(()=>document.getElementById('currentSectionLabel')?.scrollIntoView({behavior:'smooth',block:'start'}),80);
+}
+
+function undoLast(){
+  if(progress<=0) return;
+  if(!confirm('直前に完了した実践を未完了に戻しますか？')) return;
+  progress--;
+  saveProgress();render();
+}
+
+function showNextModal(){
+  if(!modalQueue.length){closeModal();return}
+  const ev=modalQueue.shift();
+  if(ev.type==='milestone') renderMilestoneModal(ev.value);
+  else renderSectionModal(ev.value);
+  const bg=document.getElementById('modalBg');bg.classList.add('open');bg.setAttribute('aria-hidden','false');
+}
+function closeModal(){const bg=document.getElementById('modalBg');bg.classList.remove('open');bg.setAttribute('aria-hidden','true');document.getElementById('modal').innerHTML='';}
+function continueModal(){ if(modalQueue.length) showNextModal(); else closeModal(); }
+
+function getBookSalesLabel(){
+  // 2026/11/18 00:00 JST で自動切り替え
+  const releaseAt = new Date('2026-11-18T00:00:00+09:00');
+  return new Date() < releaseAt
+    ? '書籍『影響力の正体』｜11月18日発売｜Amazon予約受付中'
+    : '書籍『影響力の正体』｜好評発売中';
+}
+
+function milestoneBanner(n){
+  if(n===5) return '5つの実践、達成！';
+  if(n===30) return '30の実践、すべて達成！';
+  return `${n}の実践、達成！`;
+}
+function milestonePill(n){
+  return n===30 ? 'ALL COMPLETE!' : 'MILESTONE!';
+}
+function shareConfettiHTML(n){
+  const base=[['8%','12%','18deg'],['18%','26%','-26deg'],['82%','14%','32deg'],['90%','28%','-18deg'],['10%','70%','45deg'],['26%','82%','-30deg'],['76%','74%','24deg'],['88%','62%','-42deg']];
+  const extra=n===30?[['48%','10%','12deg'],['60%','82%','-18deg'],['35%','18%','40deg'],['68%','22%','-30deg']]:[];
+  return [...base,...extra].map(([l,t,r])=>`<span style="left:${l};top:${t};--r:${r}"></span>`).join('');
+}
+function renderMilestoneModal(n){
+  const m=MILESTONES[n];
+  const modal=document.getElementById('modal');
+  modal.innerHTML=`
+    <div class="share-card" id="shareCardPreview">
+      <div class="sc-top-title">『影響力の正体』30の実践チャレンジ</div>
+      <div class="sc-subtitle">30 PRACTICES CHALLENGE</div>
+      <div class="sc-hero">
+        <div class="sc-burst"></div>
+        <div class="sc-confetti">${shareConfettiHTML(n)}</div>
+        <div class="sc-pill ${n===30?'final':''}">${milestonePill(n)}</div>
+        <div class="sc-rays">${n===30?'✦✦✦':'///'}</div>
+        <div class="sc-big-wrap"><span class="sc-big">${n}</span>${n===5?'<span class="sc-tsu">つ</span>':''}</div>
+        <div class="sc-achieve">${milestoneBanner(n)}</div>
+        <div class="sc-complete">${n} / 30 COMPLETE</div>
+      </div>
+      <div class="sc-sections">${shareSectionHTML(m.activeSection,n)}</div>
+      <div class="sc-bottom">
+        <img class="sc-book" src="assets/book-cover.png" alt="『影響力の正体』書影">
+        <p class="sc-copy">${m.copyLines.join('<br>')}</p>
+        <div class="sc-foot">${getBookSalesLabel()}</div>
+      </div>
+    </div>
+    <div class="modal-head"><h2>${m.title}</h2><p>${m.body}</p></div>
+    <div class="modal-actions"><button class="btn" id="modalClose">閉じる</button><button class="btn primary" id="saveShare">画像を保存</button></div>`;
+  document.getElementById('modalClose').onclick=continueModal;
+  document.getElementById('saveShare').onclick=()=>saveShareImage(n);
+}
+
+function shareSectionHTML(activeSection,n){
+  return SECTIONS.map(s=>{
+    let cls='';
+    const completed = n===30 ? true : s.id<activeSection;
+    if(completed) cls='done';
+    if(s.id===activeSection && n!==30) cls='active';
+    if(n===30 && s.id===4) cls='active';
+    return `<div class="sc-sec ${cls}"><div><span class="num">SECTION 0${s.id}</span><span class="name">${s.short}</span></div>${completed?'<span class="sc-check">✓</span>':''}</div>`;
+  }).join('');
+}
+
+function renderSectionModal(id){
+  const s=SECTIONS.find(x=>x.id===id);
+  const modal=document.getElementById('modal');
+  const unlock = s.nextLabel
+    ? `<p class="section-unlocked">🔓 <b>${s.nextLabel}</b><br>がオープンしました！</p>`
+    : `<p class="section-unlocked">🎉 <b>30の実践、すべて達成！</b></p>`;
+  modal.innerHTML=`
+    <div class="section-modal-card">
+      <div class="section-confetti" aria-hidden="true">
+        <span style="--x:8%;--y:8%;--r:18deg"></span><span style="--x:20%;--y:18%;--r:-28deg"></span>
+        <span style="--x:78%;--y:12%;--r:35deg"></span><span style="--x:90%;--y:26%;--r:-18deg"></span>
+        <span style="--x:10%;--y:68%;--r:48deg"></span><span style="--x:86%;--y:72%;--r:22deg"></span>
+      </div>
+      <div class="section-celebrate">
+        <div class="section-complete-big">SECTION 0${s.id} COMPLETE!</div>
+        <div class="section-checkmark">✓</div>
+      </div>
+      <h3>${s.completeTitle}</h3>
+      <p>${s.completeText}</p>
+      ${unlock}
+      <p class="section-book-line">${s.bookLine}</p>
+    </div>
+    <div class="modal-actions"><button class="btn primary" id="sectionNext">${s.id===4?'完了':'次のSECTIONへ'}</button></div>`;
+  document.getElementById('sectionNext').onclick=continueModal;
+}
+
+async function ensureFonts(){
+  if(!document.fonts?.load) return;
+  try{await Promise.all([
+    document.fonts.load('900 300px "Noto Sans JP"'),
+    document.fonts.load('900 52px "Noto Sans JP"'),
+    document.fonts.load('900 54px "Noto Serif JP"'),
+    document.fonts.load('700 34px "Noto Serif JP"'),
+    document.fonts.load('700 24px "Noto Sans JP"')
+  ]);await document.fonts.ready;}catch(e){}
+}
+
+function roundedRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function wrapText(ctx,text,maxWidth){
+  const chars=[...text];const lines=[];let line='';
+  for(const ch of chars){const test=line+ch;if(ctx.measureText(test).width>maxWidth && line){lines.push(line);line=ch}else line=test}
+  if(line) lines.push(line);return lines;
+}
+function drawCentered(ctx,text,x,y,font,color,stroke){ctx.font=font;ctx.textAlign='center';ctx.textBaseline='middle';if(stroke){ctx.lineWidth=stroke.width;ctx.strokeStyle=stroke.color;ctx.strokeText(text,x,y)}ctx.fillStyle=color;ctx.fillText(text,x,y)}
+
+async function drawShareCanvas(n){
+  await ensureFonts();
+  const canvas=document.getElementById('shareCanvas'),ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height,m=MILESTONES[n];
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#FCFAF5';ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='#171717';ctx.lineWidth=5;ctx.strokeRect(12,12,W-24,H-24);
+  ctx.strokeStyle='#16B9E7';ctx.lineWidth=9;ctx.strokeRect(5,5,W-10,H-10);
+
+  drawCentered(ctx,'『影響力の正体』30の実践チャレンジ',W/2,58,'700 38px "Noto Serif JP"','#171717');
+  drawCentered(ctx,'30 PRACTICES CHALLENGE',W/2,101,'900 18px "Noto Sans JP"','#171717');
+
+  const hx=150,hy=132,hw=780,hh=560;
+  ctx.fillStyle='#F2787E';ctx.fillRect(hx+18,hy+18,hw,hh);
+  ctx.fillStyle='#16B9E7';ctx.fillRect(hx,hy,hw,hh);ctx.strokeStyle='#171717';ctx.lineWidth=5;ctx.strokeRect(hx,hy,hw,hh);
+
+  // burst background inside hero
+  ctx.save();
+  ctx.translate(W/2, hy+hh*0.42);
+  const rayCount = n===30 ? 28 : 20;
+  for(let i=0;i<rayCount;i++){
+    ctx.save();
+    ctx.rotate((Math.PI*2/rayCount)*i);
+    ctx.fillStyle = i%2===0 ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.05)';
+    ctx.beginPath();
+    ctx.moveTo(-14,-34);
+    ctx.lineTo(hw*0.33,-10);
+    ctx.lineTo(hw*0.33,10);
+    ctx.lineTo(-14,34);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+  ctx.restore();
+
+  // top pill
+  const pillText = n===30 ? 'ALL COMPLETE!' : 'MILESTONE!';
+  ctx.fillStyle = n===30 ? '#FFF5F6' : '#FFFFFF';
+  roundedRect(ctx,176,154, n===30?220:180, 46, 0); ctx.fill(); ctx.strokeStyle='#171717'; ctx.lineWidth=4; ctx.stroke();
+  drawCentered(ctx,pillText, n===30?286:266, 177, '900 21px "Noto Sans JP"', '#171717');
+  // confetti
+  const confetti = [
+    [190,220,16,'#F2787E'],[250,265,-24,'#FFFFFF'],[790,215,32,'#8FE8FF'],[850,270,-18,'#F2787E'],
+    [220,570,45,'#8FE8FF'],[300,620,-28,'#F2787E'],[760,580,24,'#FFFFFF'],[830,520,-42,'#F2787E'],
+    [520,175,18,'#FFFFFF'],[620,210,-18,'#F2787E']
+  ];
+  if(n===30) confetti.push([400,205,38,'#8FE8FF'],[680,185,-28,'#FFFFFF'],[610,605,16,'#F2787E'],[450,585,-36,'#8FE8FF']);
+  confetti.forEach(([x,y,r,c])=>{ctx.save();ctx.translate(x,y);ctx.rotate(r*Math.PI/180);ctx.fillStyle=c;ctx.fillRect(-6,-16,12,32);ctx.strokeStyle='#171717';ctx.lineWidth=2;ctx.strokeRect(-6,-16,12,32);ctx.restore();});
+  // stars/rays text accent
+  drawCentered(ctx,n===30?'✦ ✦ ✦':'///', 800, 240, '900 34px "Noto Sans JP"', '#F2787E');
+
+  // number shadow and main
+  ctx.save();
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.font='900 330px "Noto Sans JP"';
+  ctx.fillStyle='#F2787E';ctx.fillText(String(n),W/2+14,381+10);
+  ctx.lineWidth=7; ctx.strokeStyle='#171717'; ctx.strokeText(String(n),W/2,381);
+  ctx.fillStyle='#FFFFFF'; ctx.fillText(String(n),W/2,381);
+  ctx.restore();
+  if(n===5){
+    drawCentered(ctx,'つ',675,493,'900 62px "Noto Sans JP"','#FFFFFF',{width:5,color:'#171717'});
+  }
+
+  const bannerText = n===5 ? '5つの実践、達成！' : n===30 ? '30の実践、すべて達成！' : `${n}の実践、達成！`;
+  const bannerX = n===30 ? 205 : 260;
+  const bannerW = n===30 ? 670 : 560;
+  ctx.fillStyle='#FFFFFF';roundedRect(ctx,bannerX,545,bannerW,82,0);ctx.fill();ctx.strokeStyle='#171717';ctx.lineWidth=5;ctx.stroke();
+  drawCentered(ctx,bannerText,bannerX+bannerW/2,585,n===30?'900 42px "Noto Sans JP"':'900 48px "Noto Sans JP"','#171717');
+  drawCentered(ctx,`${n} / 30 COMPLETE`,540,656,'900 20px "Noto Sans JP"','#FFFFFF');
+
+  // Section tracker with checks
+  const cy=790,r=74,gap=190,start=255;
+  SECTIONS.forEach((s,i)=>{
+    const cx=start+i*gap;
+    const completed = n===30 ? true : s.id<m.activeSection;
+    const active = n===30 ? s.id===4 : s.id===m.activeSection;
+    let fill='#DADADA';
+    if(completed) fill='#F2787E';
+    if(active) fill='#16B9E7';
+    ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle='#171717';ctx.lineWidth=4;ctx.stroke();
+    if(completed){
+      ctx.beginPath(); ctx.arc(cx+52, cy-50, 17, 0, Math.PI*2); ctx.fillStyle='#FFFFFF'; ctx.fill(); ctx.strokeStyle='#171717'; ctx.lineWidth=3; ctx.stroke();
+      drawCentered(ctx,'✓',cx+52,cy-50,'900 18px "Noto Sans JP"','#171717');
+    }
+    drawCentered(ctx,`SECTION 0${s.id}`,cx,cy-18,'900 16px "Noto Sans JP"','#171717');
+    ctx.font='700 15px "Noto Sans JP"';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#171717';
+    const lines=wrapText(ctx,s.short,120).slice(0,2);lines.forEach((line,j)=>ctx.fillText(line,cx,cy+16+j*20));
+  });
+
+  ctx.strokeStyle='#171717';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(56,900);ctx.lineTo(1024,900);ctx.stroke();
+
+  const img=document.getElementById('bookCoverSource');
+  if(!img.complete) await new Promise(res=>{img.onload=res;img.onerror=res});
+  const bx=75,by=930,bw=250,bh=370;
+  try{ctx.drawImage(img,bx,by,bw,bh)}catch(e){}
+
+  ctx.font='900 48px "Noto Serif JP"';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillStyle='#171717';
+  const lines=m.copyLines;let ty=965;for(const line of lines){ctx.fillText(line,365,ty);ty+=70}
+  const underlineW = Math.min(540,Math.max(260,Math.max(...lines.map(line=>ctx.measureText(line).width))));
+  ctx.fillStyle='#F2787E';ctx.fillRect(365,ty+4,underlineW,8);
+  ctx.font='700 21px "Noto Serif JP"';ctx.fillStyle='#171717';ctx.fillText(getBookSalesLabel(),365,1240);
+  ctx.font='500 16px "Noto Sans JP"';ctx.fillStyle='#6A625B';ctx.fillText('sub.pioneerwoman.jp/p/eikyoryoku',365,1280);
+  return canvas;
+}
+async function saveShareImage(n){
+  const canvas=await drawShareCanvas(n);
+  const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
+  if(!blob) return;
+
+  const filename=`influence-practice-${n}-of-30.png`;
+  const file=new File([blob], filename, {type:'image/png'});
+
+  // 可能ならOS標準の共有シートを使う。iPhoneではここから「画像を保存」も選べます。
+  try{
+    if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+      await navigator.share({files:[file], title:`${n} / 30 COMPLETE`});
+      return;
+    }
+  }catch(e){
+    if(e && e.name==='AbortError') return;
+  }
+
+  const ua=navigator.userAgent || '';
+  const isInApp=/Line\//i.test(ua) || /Instagram/i.test(ua) || /FBAN|FBAV/i.test(ua) || /GSA/i.test(ua);
+  const isIOS=/iPad|iPhone|iPod/i.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+
+  // LINEなどのアプリ内ブラウザは download 属性を無視することがあるため、
+  // 画像を画面内に表示して「長押し保存」できるフォールバックを優先。
+  if(isInApp || isIOS){
+    showSaveFallback(canvas, filename);
+    return;
+  }
+
+  // Safari / Chrome等の通常ブラウザではダウンロードを試す。
+  try{
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;
+    a.download=filename;
+    a.rel='noopener';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),2000);
+    return;
+  }catch(e){
+    showSaveFallback(canvas, filename);
+  }
+}
+
+function showSaveFallback(canvas, filename){
+  const dataUrl=canvas.toDataURL('image/png');
+  const modal=document.getElementById('modal');
+  modal.innerHTML=`
+    <div style="text-align:center">
+      <h2 style="font-family:var(--serif);font-size:20px;margin:4px 0 10px">保存用画像を表示しました</h2>
+      <p style="font-size:13px;line-height:1.7;color:var(--muted);margin:0 0 12px">LINEなどのアプリ内ブラウザでは直接保存できない場合があります。<br>下の画像を長押しして「写真に保存」を選んでください。</p>
+      <img src="${dataUrl}" alt="保存用画像" style="display:block;width:100%;height:auto;border:1.5px solid var(--ink);background:#fff">
+    </div>
+    <div class="modal-actions"><button class="btn primary" id="fallbackClose">閉じる</button></div>`;
+  document.getElementById('fallbackClose').onclick=continueModal;
+}
+
+document.getElementById('completeBtn').addEventListener('click',completeCurrent);
+document.getElementById('undoBtn').addEventListener('click',undoLast);
+document.getElementById('modalBg').addEventListener('click',e=>{if(e.target.id==='modalBg') continueModal()});
+
+loadProgress();render();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
+</script>
+</body>
+</html>
